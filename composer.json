@@ -1,0 +1,46 @@
+{
+    "name": "brocode/module-grid-filter-sort",
+    "description": "Sorts the option list of opt-in Magento 2 admin grid filter dropdowns alphabetically by label. Filters are whitelisted one by one, so workflow-ordered filters such as order status keep their meaningful order.",
+    "type": "magento2-module",
+    "license": "MIT",
+    "homepage": "https://github.com/brosenberger/module-grid-filter-sort",
+    "keywords": [
+        "magento2",
+        "magento",
+        "admin-grid",
+        "ui-component",
+        "filters",
+        "usability",
+        "brocode"
+    ],
+    "authors": [
+        {
+            "name": "Benjamin Rosenberger",
+            "email": "bensch.rosenberger@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/brosenberger/module-grid-filter-sort/issues",
+        "source": "https://github.com/brosenberger/module-grid-filter-sort"
+    },
+    "funding": [
+        {
+            "type": "buymeacoffee",
+            "url": "https://www.buymeacoffee.com/brosenberger"
+        }
+    ],
+    "require": {
+        "php": "~8.1.0||~8.2.0||~8.3.0||~8.4.0",
+        "magento/framework": ">=103.0.0",
+        "magento/module-backend": ">=102.0.0",
+        "magento/module-ui": ">=101.2.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "BroCode\\GridFilterSort\\": ""
+        }
+    }
+}
