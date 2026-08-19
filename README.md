@@ -65,10 +65,18 @@ only when its UI does.
 
 ## Verification status
 
-The mixin's sorting logic is covered by a behaviour test (whitelisted sort,
-non-whitelisted left alone, re-sort on later option updates without recursion, grouped
-options skipped, missing namespace or index as a safe no-op, non-observable options
-without a throw). The two component properties it depends on, `options` and `ns`, were
-confirmed against the Magento 2.4 sources: `options` is registered in
+The mixin's sorting logic is covered by a committed, runnable behaviour test at
+`Test/mixin/ui-select-sort-mixin.test.js` (whitelisted sort, non-whitelisted left alone,
+re-sort on later option updates without recursion, grouped options skipped, missing
+namespace or index as a safe no-op, non-observable options without a throw). It loads
+the real mixin source through a minimal AMD/Knockout shim, no build step or npm
+dependency required:
+
+```bash
+node --test Test/mixin/ui-select-sort-mixin.test.js
+```
+
+The two component properties it depends on, `options` and `ns`, were confirmed against
+the Magento 2.4 sources: `options` is registered in
 `Magento_Ui/js/form/element/ui-select::initObservable()`, and `ns` comes from the
-`uiElement` defaults. The mixin has not yet been exercised in a running admin.
+`uiElement` defaults.
