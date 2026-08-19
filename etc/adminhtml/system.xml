@@ -14,9 +14,9 @@
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1">
                 <label>General</label>
                 <field id="whitelist" translate="label comment" type="textarea" sortOrder="10"
-                       showInDefault="1" canRestore="1">
+                       showInDefault="1">
                     <label>Sorted Filters</label>
-                    <comment><![CDATA[One entry per line, in the form <code>listing_namespace:filter_index</code>, for example <code>cms_block_listing:store_id</code>. Only the filters listed here are sorted; every other filter keeps the order its data source returns. Do not add workflow-ordered filters such as order status: alphabetising those is a regression, not a fix. The listing namespace is the ui_component file name, and the filter index is the column name it filters on.]]></comment>
+                    <comment><![CDATA[One entry per line, in the form <code>listing_namespace:filter_index</code>, for example <code>cms_block_listing:is_active</code>. Only the filters listed here are sorted; every other filter keeps the order its data source returns. Do not add workflow-ordered filters such as order status: alphabetising those is a regression, not a fix. Store View filters are not covered by this module — see the README. The listing namespace is the ui_component file name, and the filter index is the column name it filters on.]]></comment>
                 </field>
             </group>
         </section>

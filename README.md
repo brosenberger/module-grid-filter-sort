@@ -18,21 +18,29 @@ filter does the same, and core offers no setting anywhere to change it.
 
 ## What this does
 
-A JS mixin on `Magento_Ui/js/grid/filters/elements/ui-select`, the component behind
-select-type grid filters, sorts a whitelisted filter's options by label. Sorting is
-case-insensitive and uses `localeCompare`, so accented labels land where a human expects
-them rather than after `Z`.
+A JS mixin on `Magento_Ui/js/form/element/ui-select`, the component behind most
+select-type grid filters (confirmed at runtime against a real admin grid — core's
+`Magento_Ui/js/grid/filters/elements/ui-select` looks like the obvious target but is
+actually a narrow subclass only a handful of Media Gallery grids use), sorts a
+whitelisted filter's options by label. Sorting is case-insensitive and uses
+`localeCompare`, so accented labels land where a human expects them rather than after
+`Z`.
+
+Not every select-type filter renders through this component. Store View filters in
+particular use a different, native `<select>` component and are not covered by this
+mixin — see [Not in this version](#not-in-this-version).
 
 Nothing is sorted unless it is named in **Stores → Configuration → BroCode → Grid Filter
 Sort → Sorted Filters**, one entry per line:
 
 ```
-cms_block_listing:store_id
-cms_page_listing:store_id
+cms_page_listing:is_active
+cms_block_listing:is_active
 ```
 
 The left side is the listing namespace (the `ui_component` file name), the right side is
-the filter's index (the column it filters on).
+the filter's index (the column it filters on). `store_id` is deliberately not used as
+the example here — see [Not in this version](#not-in-this-version).
 
 ## Why opt-in rather than sort-everything
 
@@ -43,19 +51,25 @@ installs the module and configures nothing sees no change at all.
 
 ## What it will not touch
 
-- Filters not on the whitelist.
+- Filters not on the whitelist. This is the actual safety boundary — `Magento_Ui/js/form/element/ui-select`
+  is also used by ordinary form selects outside grids, not only grid filters, but the
+  mixin only acts on a filter whose exact `namespace:index` pair is whitelisted, so an
+  unrelated select elsewhere is never touched.
 - Grouped options (an optgroup-style list). Reordering across groups changes what the
   filter means, so a grouped list is left exactly as it arrived.
-- Anything outside grid filters. Form selects use a different component and are not
-  mixed into.
 
 ## Not in this version
 
-Per-admin drag-and-drop custom ordering is **not** included. It needs a template
-override that renders drag handles into the live filter dropdown, and shipping the
-storage layer for it without that entry point would mean dead code in a public module.
-The default sort above is complete and useful on its own; the custom order will land
-only when its UI does.
+- **Store View filters.** Magento renders these through `Magento_Ui/js/form/element/select`,
+  a native `<select>` with real `<option>`/`<optgroup>` elements — a different rendering
+  mechanism than the knockout-templated widget this mixin sorts. Whitelisting a
+  `store_id` filter currently has no effect. Support for this filter type needs its own
+  design pass, not a mixin retarget.
+- Per-admin drag-and-drop custom ordering. It needs a template override that renders
+  drag handles into the live filter dropdown, and shipping the storage layer for it
+  without that entry point would mean dead code in a public module. The default sort
+  above is complete and useful on its own for the filter types it does cover; the custom
+  order will land only when its UI does.
 
 ## Compatibility
 

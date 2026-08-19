@@ -10,12 +10,15 @@
 /**
  * Sorts the option list of whitelisted admin grid filters alphabetically by label.
  *
- * Mixed into Magento_Ui/js/grid/filters/elements/ui-select, the component behind
- * select-type grid filters. Two properties it relies on, both verified against the
- * Magento 2.4 sources:
+ * Mixed into Magento_Ui/js/form/element/ui-select, the component behind select-type
+ * grid filters (confirmed at runtime via uiRegistry against a real admin grid — core's
+ * own `Magento_Ui/js/grid/filters/elements/ui-select` is a red herring: it exists, but
+ * only a handful of Media Gallery asset-picker grids actually use it as their filter
+ * component). Two properties this mixin relies on, both verified against the Magento
+ * 2.4 sources:
  *
- * - `options` is registered in Magento_Ui/js/form/element/ui-select's initObservable(),
- *   so it is a Knockout observable holding the option list.
+ * - `options` is registered in this component's own initObservable(), so it is a
+ *   Knockout observable holding the option list.
  * - `ns` comes from the uiElement defaults (`ns: '${ $.name.split(".")[0] }'`) and holds
  *   the parent listing's namespace.
  *
