@@ -94,3 +94,7 @@ The two component properties it depends on, `options` and `ns`, were confirmed a
 the Magento 2.4 sources: `options` is registered in
 `Magento_Ui/js/form/element/ui-select::initObservable()`, and `ns` comes from the
 `uiElement` defaults.
+
+---
+
+More Magento modules and write-ups: [brocode.at](https://brocode.at/modules/)
